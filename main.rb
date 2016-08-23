@@ -1,16 +1,13 @@
 require 'dxruby'
 
 require_relative 'director'
-require_relative 'character'
+# require_relative 'character'
+require_relative 'sprite_dlang'
+require_relative 'sprite_vim'
 
 Window.caption = "maptest"
 Window.width = 800
 Window.height = 600
-
-# 背景の読み込み
-# bg_img = Image.load("images/maptest.png")
-# bg_d = Image.load("images/dlang.png")
-# bg_vim = Image.load("images/vim.png")
 
 director = Director.new
 
@@ -21,8 +18,4 @@ Window.loop do
 
     director.play
 
-    # 背景を表示
-    # Window.draw(0, 0, bg_img)
-    # Window.draw(0, 0, bg_d)
-    # Window.draw(32, 0, bg_vim)
 end
