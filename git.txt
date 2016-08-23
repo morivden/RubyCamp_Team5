@@ -343,4 +343,4 @@ git add コミットしたいファイル
 git commit -m "コメント"
 git remote add origin git@github.com:Githubで作ったリポジトリのURL
 例:git@github.com:user/repository
-git push -u prigin master
+git push -u origin master
