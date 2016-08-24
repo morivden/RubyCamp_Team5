@@ -21,5 +21,6 @@ class Director
 
         Sprite.draw(@vim)
         Sprite.draw(@dlang)
+        # Sprite.check(@vim, @dlang)
     end
 end
