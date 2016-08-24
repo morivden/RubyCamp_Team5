@@ -3,7 +3,8 @@ require_relative 'lib/director'
 
 Window.width = 800  # 32px * 25マス
 Window.height = 600 # 32px * 17マス + 画面下部のスペース(54px)
-
+bgm = Sound.new("lib/tamco03.mid")
+bgm.play
 Window.loop do
   Director.instance.play
   Director.instance.random

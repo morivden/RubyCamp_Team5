@@ -1,12 +1,20 @@
 require_relative 'character'
 
 class Ruby < Character
-  def initialize(x, y)
+  def initialize
+    @s2 = SoundEffect.new(1000,WAVE_TRI) do
+      [160,100]
+    end
     image = Image.load(image_path("ruby.png"))
+    x = rand(Window.width - image.width)
+    y = rand(Window.height - image.height)
     image.set_color_key(C_WHITE)
     super(x, y, image)
   end
     def hit(obj)
-      vanish if obj.is_a?(Player)
+      if obj.is_a?(Player)
+        vanish
+        @s2.play
+      end
     end
 end
