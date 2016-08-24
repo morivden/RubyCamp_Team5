@@ -7,7 +7,7 @@ class Player < Character
   def initialize
     image = Image.load(image_path("player.png"))
     image.set_color_key(C_WHITE)
-    super(280, 100, image)
+    super(0, 0, image)
     @life = 3
     @get_ruby = 0
     @get_vim = 0
