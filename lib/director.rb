@@ -31,23 +31,12 @@ class Director
       point = [rand(2..23), rand(2..16)]
       @obstacles << Obstacle.new(point[0] * 32, point[1] * 32)
     end
-    # @coins = []
-    # 10.times do
-      # point = [rand(1..24), rand(1..16)]
-      # # 移動不可能なマスか、すでにコインが配置されているマスの場合はやり直す
-      # if !@map.movable?(*point) ||
-         # @coins.any?{|coin| [coin.cell_x, coin.cell_y] == point}
-        # redo
-      # end
-      # @coins << Coin.new(*point)
-    # end
-    # @characters += @coins
-    # @enemies = []
-    # @enemies << Enemy.new(11,7)
-    # @enemies << Enemy2.new(17,5)
+    @enemies = []
+    #@enemies << Enemy.new(11,7)
+    @enemies << Golang.new(700,500)
     # @enemies << Enemy3.new(3,11)
     # @enemies << Enemy4.new(11,7)
-    # @characters += @enemies
+    @characters += @enemies
     @characters += @obstacles
     @player = Player.new
 
