@@ -1,45 +1,44 @@
 require_relative 'character'
 
 # プレイヤーのあとをつけてくる敵（紫）
-class Enemy3 < Character
-  UPDATE_THRESHOLD = 10 # 10フレームごとに移動する（はやい）
-  PAST_DEPTH = 7 # どれだけ過去のプレイヤーの位置を追うか
+class Lisp < Character
+  # UPDATE_THRESHOLD = 10 # 10フレームごとに移動する（はやい）
+  # PAST_DEPTH = 7 # どれだけ過去のプレイヤーの位置を追うか
 
-  def initialize(cell_x, cell_y)
-    image = Image.load(image_path("enemy3.png"))
-    image.set_color_key(C_WHITE)
-    super(cell_x , cell_y, image)
-    @count = 0
-    @player_pos_logs = []
+  def initialize(x, y)
+    image = Image.load(image_path("lisp.png"))
+    image.set_color_key([255, 255, 12])
+    super(x , y, image)
+    @dx, @dy = 0
   end
 
   def update
-    if @count < UPDATE_THRESHOLD
-      @count += 1
-      return
+    calc_route
+    tmp_x = x
+    tmp_y = y
+    self.x += @dx
+    self.y += @dy
+    if Sprite.check(self, Director.instance.obstacles)
+        self.x = tmp_x
+        self.y = tmp_y
     end
-    @count = 0
-
-    # プレイヤーの位置を覚えておく。古くなったのは捨てる
-    player = Director.instance.player
-    @player_pos_logs << [player.cell_x, player.cell_y]
-    @player_pos_logs.shift if @player_pos_logs.size > PAST_DEPTH
-
-    move
   end
 
-  private
-
-  def move
-    map = Director.instance.map
-    start = [@cell_x, @cell_y]
-    goal = @player_pos_logs.first
-    route = map.calc_route(start, goal)
-    dest = route[1]
-    if dest
-      dx = dest[0] - @cell_x
-      dy = dest[1] - @cell_y
-      move_cell(dx: dx, dy: dy)
-    end
+  def calc_route
+      player = Director.instance.player
+      if x - player.x < 0
+        @dx  = 1
+      elsif x - player.x == 0
+        @dx = 0
+      else
+        @dx = -1
+      end
+      if y - player.y < 0
+        @dy = 1
+      elsif y - player.y == 0
+        @dy = 0
+      else
+        @dy = -1
+      end
   end
 end
