@@ -27,8 +27,8 @@ class Director
     @items = []
     @rand_items = 0
     @obstacles = []
-    10.times do
-      point = [rand(2..10), rand(2..10)]
+    40.times do
+      point = [rand(2..23), rand(2..16)]
       @obstacles << Obstacle.new(point[0] * 32, point[1] * 32)
     end
     # @coins = []
