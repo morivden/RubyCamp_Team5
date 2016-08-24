@@ -6,6 +6,7 @@ Window.height = 600 # 32px * 17マス + 画面下部のスペース(54px)
 
 Window.loop do
   Director.instance.play
+  Director.instance.random
 
   break if Input.key_push? K_ESCAPE
 end
