@@ -9,7 +9,6 @@ require_relative 'obstacle'
 require_relative 'enemy'
 require_relative 'enemy2'
 require_relative 'enemy3'
-#require_relative 'enemy4'
 #require_relative 'coin'
 
 class Director
@@ -32,10 +31,9 @@ class Director
       @obstacles << Obstacle.new(point[0] * 32, point[1] * 32)
     end
     @enemies = []
-    #@enemies << Enemy.new(11,7)
+    @enemies << Dlang.new(1,500)
     @enemies << Golang.new(700,500)
-    @enemies << Lisp.new(700,500)
-    # @enemies << Enemy4.new(11,7)
+    @enemies << Lisp.new(700,1)
     @characters += @enemies
     @characters += @obstacles
     @player = Player.new
@@ -47,25 +45,32 @@ class Director
   def play
 
     # # ゲームオーバーになったら描画以外のことはしない
-    # unless game_over?
+    unless game_over?
       # count_down
     Sprite.update(@characters)
-      # Sprite.check(@enemies, @player, :hit, :attacked)
+    Sprite.check(@player, @enemies)
       # Sprite.check(@player, @coins)
       # compact
-    # end
-
-
-    #@map.draw
+    end
+	
     #@info_window.draw
     Sprite.draw(@characters)
     Sprite.check(@characters, @items)
 
   end
+  
+  # 下記のいずれかの状態になったらゲーム終了
+	#
+	# ・ゲーム開始から <TIME_LIMIT> 秒が経過する
+	# ・プレイヤーのライフが 0 になる
+	# ・すべてのコインを取る
+  def game_over?
+	return @player.life <= 0
+  end
 
   def random
-    @rand_vim = rand(RANDOM)
-    @rand_emacs = rand(RANDOM)
+    @rand_vim = rand(RANDOM/2)
+    @rand_emacs = rand(RANDOM/5)
     @rand_ruby = rand(RANDOM/3)
     if @rand_vim == 30
       @item = Vim.new
