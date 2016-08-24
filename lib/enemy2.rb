@@ -1,6 +1,5 @@
 require_relative 'character'
 
-# 最短経路で近づいてくる敵（赤）
 class Golang < Character
   DELTA = 2
   def initialize(x, y)

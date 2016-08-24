@@ -3,7 +3,7 @@ require_relative 'character'
 class Player < Character
   attr_reader :life, :score
   attr_accessor :dx, :dy
-  DELTA = 2
+  DELTA = 4
   def initialize
     image = Image.load(image_path("player.png"))
     image.set_color_key(C_WHITE)
