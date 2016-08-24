@@ -2,6 +2,7 @@ require_relative 'character'
 
 class Player < Character
   attr_reader :life, :score
+  attr_accessor :dx, :dy
   DELTA = 2
   def initialize
     image = Image.load(image_path("player.png"))
@@ -15,24 +16,41 @@ class Player < Character
 
   def update
     #map = Director.instance.map
-    dy = -DELTA if Input.key_down?(K_UP) && @pixel_y > DELTA
-    dy = DELTA  if Input.key_down?(K_DOWN) && @pixel_y < Window.height - @image.height
-    dx = DELTA  if Input.key_down?(K_RIGHT) && @pixel_x < Window.width - @image.width
-    dx = -DELTA if Input.key_down?(K_LEFT) && @pixel_x > DELTA
-    move_pixel(dx: dx, dy: dy)
+    dx, dy = 0, 0
+    dy = -DELTA if Input.key_down?(K_UP) && y > DELTA
+    dy = DELTA  if Input.key_down?(K_DOWN) && y < Window.height - image.height
+    dx = DELTA  if Input.key_down?(K_RIGHT) && x < Window.width - image.width
+    dx = -DELTA if Input.key_down?(K_LEFT) && x > DELTA
+    tmp_x = x
+    tmp_y = y
+    self.x += dx
+    self.y += dy
+    if Sprite.check(self, Director.instance.obstacles)
+      self.x = tmp_x
+      self.y = tmp_y
+    end
   end
 
   def shot(obj)
       if obj.is_a?(Ruby)
           @get_ruby += 1
+          p "Ruby : #{@get_ruby}"
+          p "Vim : #{@get_vim}"
+          p "Emacs : #{@get_emacs}"
+          p "---------------"
       elsif obj.is_a?(Vim)
           @get_vim += 1
+          p "Ruby : #{@get_ruby}"
+          p "Vim : #{@get_vim}"
+          p "Emacs : #{@get_emacs}"
+          p "---------------"
       elsif obj.is_a?(Emacs)
           @get_emacs += 1
+          p "Ruby : #{@get_ruby}"
+          p "Vim : #{@get_vim}"
+          p "Emacs : #{@get_emacs}"
+          p "---------------"
       end
-      p "Ruby : #{@get_ruby}"
-      p "Vim : #{@get_vim}"
-      p "Emacs : #{@get_emacs}"
-      p "---------------"
+
   end
 end

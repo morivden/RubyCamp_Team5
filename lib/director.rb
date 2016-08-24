@@ -5,6 +5,7 @@ require_relative 'player'
 require_relative 'vim'
 require_relative 'emacs'
 require_relative 'ruby'
+require_relative 'obstacle'
 #require_relative 'enemy'
 #require_relative 'enemy2'
 #require_relative 'enemy3'
@@ -13,7 +14,7 @@ require_relative 'ruby'
 
 class Director
   include Singleton
-  attr_reader :player, :item #,map
+  attr_reader :player, :item, :obstacles #,map
   RANDOM = 1500
 
   def initialize
@@ -25,6 +26,8 @@ class Director
     @characters = []
     @items = []
     @rand_items = 0
+    @obstacles = []
+    @obstacles << Obstacle.new(100, 50)
 
     # @coins = []
     # 10.times do
@@ -43,7 +46,7 @@ class Director
     # @enemies << Enemy3.new(3,11)
     # @enemies << Enemy4.new(11,7)
     # @characters += @enemies
-
+    @characters += @obstacles
     @player = Player.new
 
     @characters << @player

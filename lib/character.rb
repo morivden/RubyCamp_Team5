@@ -1,4 +1,5 @@
 class Character < Sprite
+=begin
   attr_reader :pixel_x, :pixel_y
 
   def initialize(pixel_x, pixel_y, image)
@@ -19,6 +20,7 @@ class Character < Sprite
       self.y += dy
     end
   end
+=end
 
   private
 
