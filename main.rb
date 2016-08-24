@@ -1,21 +1,12 @@
 require 'dxruby'
+require_relative 'lib/director'
 
-require_relative 'director'
-# require_relative 'character'
-require_relative 'sprite_dlang'
-require_relative 'sprite_vim'
+Window.width = 800  # 32px * 25マス
+Window.height = 600 # 32px * 17マス + 画面下部のスペース(54px)
 
-Window.caption = "maptest"
-Window.width = 800
-Window.height = 600
-
-director = Director.new
-
-# メイン
 Window.loop do
-    # Escキーで終了
-    break if Input.keyPush?(K_ESCAPE)
+  Director.instance.play
+  Director.instance.random
 
-    director.play
-
+  break if Input.key_push? K_ESCAPE
 end
