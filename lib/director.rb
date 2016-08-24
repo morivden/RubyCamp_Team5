@@ -8,7 +8,7 @@ require_relative 'ruby'
 require_relative 'obstacle'
 require_relative 'enemy'
 require_relative 'enemy2'
-#require_relative 'enemy3'
+require_relative 'enemy3'
 #require_relative 'enemy4'
 #require_relative 'coin'
 
@@ -34,7 +34,7 @@ class Director
     @enemies = []
     #@enemies << Enemy.new(11,7)
     @enemies << Golang.new(700,500)
-    # @enemies << Enemy3.new(3,11)
+    @enemies << Lisp.new(700,500)
     # @enemies << Enemy4.new(11,7)
     @characters += @enemies
     @characters += @obstacles
