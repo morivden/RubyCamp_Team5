@@ -2,25 +2,27 @@ require_relative 'character'
 
 class Player < Character
   attr_reader :life, :score
-  attr_accessor :dx, :dy
-  DELTA = 4
   def initialize
     image = Image.load(image_path("player.png"))
     image.set_color_key(C_WHITE)
     super(0, 0, image)
-    @life = 3
+    @life = 1
     @get_ruby = 0
     @get_vim = 0
     @get_emacs = 0
+	@delta = 3
+	@time = 0
+	@barrier = 0
+	@invincible_flag = 0
+	@invi_time = 0
   end
 
   def update
-    #map = Director.instance.map
     dx, dy = 0, 0
-    dy = -DELTA if Input.key_down?(K_UP) && y > DELTA
-    dy = DELTA  if Input.key_down?(K_DOWN) && y < Window.height - image.height
-    dx = DELTA  if Input.key_down?(K_RIGHT) && x < Window.width - image.width
-    dx = -DELTA if Input.key_down?(K_LEFT) && x > DELTA
+    dy = -@delta if Input.key_down?(K_UP) && y > @delta
+    dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height
+    dx = @delta  if Input.key_down?(K_RIGHT) && x < Window.width - image.width
+    dx = -@delta if Input.key_down?(K_LEFT) && x > @delta
     tmp_x = x
     tmp_y = y
     self.x += dx
@@ -29,28 +31,57 @@ class Player < Character
       self.x = tmp_x
       self.y = tmp_y
     end
+	
+	#Vimの効果
+	unless @get_vim.zero?
+	  @time += 1
+	  @delta = 5
+	end 
+	if @time >= 5 * 60
+	  @time = 0
+	  @get_vim = 0
+	  @delta = 3
+	end
+	
+	#無敵時間
+	if @invincible_flag == 1
+	  @invi_time += 1
+	end
+	if @invi_time >= 3 * 60
+	  @invi_time = 0
+	  @invincible_flag = 0
+	end
+	
   end
 
   def shot(obj)
-      if obj.is_a?(Ruby)
-          @get_ruby += 1
-          p "Ruby : #{@get_ruby}"
-          p "Vim : #{@get_vim}"
-          p "Emacs : #{@get_emacs}"
-          p "---------------"
-      elsif obj.is_a?(Vim)
-          @get_vim += 1
-          p "Ruby : #{@get_ruby}"
-          p "Vim : #{@get_vim}"
-          p "Emacs : #{@get_emacs}"
-          p "---------------"
-      elsif obj.is_a?(Emacs)
-          @get_emacs += 1
-          p "Ruby : #{@get_ruby}"
-          p "Vim : #{@get_vim}"
-          p "Emacs : #{@get_emacs}"
-          p "---------------"
-      end
-
+      case obj 
+	  when Ruby
+		@get_ruby += 1
+      when Vim
+	    @time = 0 if @get_vim == 1
+        @get_vim = 1
+      when Emacs
+        @get_emacs += 1
+		@barrier += 1
+      when Dlang, Golang
+		if @invincible_flag == 0
+		if @barrier > 0
+		  @barrier -= 1
+		else
+		  @life -= 1
+		end
+		@invincible_flag = 1
+		end
+	  when Lisp 
+		@barrier = 0
+	    @life -= 1
+	  end
+		
+	  p "Ruby : #{@get_ruby}"
+      p "Vim : #{@get_vim}"
+      p "Emacs : #{@get_emacs}"
+	  p "Barrier : #{@barrier}"
+      p "---------------"
   end
 end
