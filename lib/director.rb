@@ -14,7 +14,7 @@ require_relative 'ruby'
 class Director
   include Singleton
   attr_reader :player, :item #,map
-  R = 800
+  RANDOM = 800
 
   def initialize
     #@start_time = Time.now
@@ -65,20 +65,22 @@ class Director
     #@map.draw
     #@info_window.draw
     Sprite.draw(@characters)
+    Sprite.check(@characters, @items)
 
   end
 
   def random
-    @rand_items = rand(R)
-    @rand_ruby = rand(R/2)
-    if @rand_items == 30
-      @item = Vim.new(rand(800),rand(600))
+    @rand_vim = rand(RANDOM/2)
+    @rand_emacs = rand(RANDOM)
+    @rand_ruby = rand(RANDOM/3)
+    if @rand_vim == 30
+      @item = Vim.new(rand(Window.width - 32),rand(Window.height - 32))
       @items << @item
-    elsif @rand_items == 40
-      @item = Emacs.new(rand(800),rand(600))
+    elsif @rand_emacs == 40
+      @item = Emacs.new(rand(Window.width - 32),rand(Window.height - 32))
       @items << @item
     elsif @rand_ruby == 50
-      @item = Ruby.new(rand(800),rand(600))
+      @item = Ruby.new(rand(Window.width - 32),rand(Window.height - 32))
       @items << @item
     end
     Sprite.draw(@items)

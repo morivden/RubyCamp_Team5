@@ -6,9 +6,7 @@ class Ruby < Character
     image.set_color_key(C_WHITE)
     super(x, y, image)
   end
-=begin
-  def hit(obj)
-    vanish
-  end
-=end
+    def hit(obj)
+      vanish if obj.is_a?(Player)
+    end
 end

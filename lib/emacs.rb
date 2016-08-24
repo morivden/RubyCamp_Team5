@@ -6,9 +6,9 @@ class Emacs < Character
     image.set_color_key(C_WHITE)
     super(x, y, image)
   end
-=begin
+
   def hit(obj)
-    vanish
+    vanish if obj.is_a?(Player)
   end
-=end
+
 end
