@@ -74,9 +74,5 @@ class Player < Character
 		@get_emacs = 0
 	    @life -= 1
 	  end
-		
-	  p "Ruby : #{@get_ruby}"
-      p "Vim : #{@get_vim}"
-      p "Emacs : #{@get_emacs}"
   end
 end
