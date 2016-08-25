@@ -5,9 +5,9 @@ require_relative 'vim'
 require_relative 'emacs'
 require_relative 'ruby'
 require_relative 'obstacle'
-require_relative 'enemy'
-require_relative 'enemy2'
-require_relative 'enemy3'
+require_relative 'dlang_enemy'
+require_relative 'golang_enemy'
+require_relative 'lisp_enemy'
 
 class Director
   include Singleton

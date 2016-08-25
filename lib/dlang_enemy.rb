@@ -37,7 +37,7 @@ class Dlang < Character
         end
         if y <= 0
             @dy = 5
-        elsif y >= (Window.height - imgae.width - 32)
+        elsif y >= (Window.height - image.width - 32)
             @dy = -5
         end
     end
