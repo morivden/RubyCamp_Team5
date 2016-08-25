@@ -37,7 +37,7 @@ class Dlang < Character
     end
     if y <= 0
       @dy = 5
-    elsif y >= 550
+    elsif y >= (Window.height - image.width - 32)
       @dy = -5
     end
   end

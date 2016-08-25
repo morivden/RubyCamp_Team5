@@ -19,7 +19,7 @@ class Player < Character
   def update
     dx, dy = 0, 0
     dy = -@delta if Input.key_down?(K_UP) && y > @delta
-    dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height
+    dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height - 32
     dx = @delta  if Input.key_down?(K_RIGHT) && x < Window.width - image.width
     dx = -@delta if Input.key_down?(K_LEFT) && x > @delta
     tmp_x = x
