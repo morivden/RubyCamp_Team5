@@ -5,12 +5,26 @@ class Dlang < Character
     image = Image.load(image_path("dlang.png"))
     image.set_color_key([44,238,229])
     super(x, y, image)
-    @dx = 1
-    @dy = 1
+    @dx = 5
+    @dy = 5
   end
 
   def update
     move
+    tmp_x = self.x
+    tmp_y = self.y
+    dx = @dx + rand(1..3)
+    self.x += dx
+    if Sprite.check(self, Director.instance.obstacles)
+      @dx = -dx
+    end
+    self.x = tmp_x
+    self.y += @dy
+    dy = @dy + rand(1..3)
+    if Sprite.check(self, Director.instance.obstacles)
+      @dy = -dy
+    end
+    self.y = tmp_y
     self.x += @dx
     self.y += @dy
   end
@@ -27,5 +41,9 @@ class Dlang < Character
       @dy = -5
     end
   end
+
+
+
+
 
 end
