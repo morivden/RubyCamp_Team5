@@ -1,24 +1,26 @@
-require_relative 'character'
+﻿
+﻿require_relative 'character'
+
 class Player < Character
   attr_reader :life, :score, :get_ruby, :get_vim, :get_emacs
   def initialize
-    image = Image.load(image_path("player.png"))
+    image = Image.load(image_path("player2.png"))
     image.set_color_key(C_WHITE)
     super(0, 0, image)
     @life = 1
     @get_ruby = 0
     @get_vim = 0
     @get_emacs = 0
-	@delta = 3
-	@time = 0
-	@invincible_flag = 0
-	@invi_time = 0
+  	@delta = 3
+	  @time = 0
+	  @invincible_flag = 0
+	  @invi_time = 0
   end
 
   def update
     dx, dy = 0, 0
     dy = -@delta if Input.key_down?(K_UP) && y > @delta
-    dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height - 32
+    dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height
     dx = @delta  if Input.key_down?(K_RIGHT) && x < Window.width - image.width
     dx = -@delta if Input.key_down?(K_LEFT) && x > @delta
     tmp_x = x
@@ -29,18 +31,18 @@ class Player < Character
       self.x = tmp_x
       self.y = tmp_y
     end
-	
+
 	#Vimの効果
 	unless @get_vim.zero?
 	  @time += 1
 	  @delta = 5
-	end 
+	end
 	if @time >= 5 * 60
 	  @time = 0
 	  @get_vim = 0
 	  @delta = 3
 	end
-	
+
 	#無敵時間
 	if @invincible_flag == 1
 	  @invi_time += 1
@@ -49,11 +51,11 @@ class Player < Character
 	  @invi_time = 0
 	  @invincible_flag = 0
 	end
-	
+
   end
 
   def shot(obj)
-      case obj 
+      case obj
 	  when Ruby
 		@get_ruby += 1
       when Vim
@@ -70,9 +72,13 @@ class Player < Character
 		end
 		@invincible_flag = 1
 		end
-	  when Lisp 
+	  when Lisp
 		@get_emacs = 0
 	    @life -= 1
 	  end
+
+	    p "Ruby : #{@get_ruby}"
+      p "Vim : #{@get_vim}"
+      p "Emacs : #{@get_emacs}"
   end
 end
