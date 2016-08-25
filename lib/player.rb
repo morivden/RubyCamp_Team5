@@ -5,7 +5,7 @@ class Player < Character
     def initialize
         image = Image.load(image_path("player2.png"))
         image.set_color_key(C_WHITE)
-        self.collision = ([2,2,29,29])
+        self.collision = ([3,3,28,28])
         super(0, 0, image)
         @life = 1
         @get_ruby = 0
