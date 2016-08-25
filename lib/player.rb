@@ -1,5 +1,4 @@
 require_relative 'character'
-
 class Player < Character
   attr_reader :life, :score, :get_ruby, :get_vim, :get_emacs
   def initialize
