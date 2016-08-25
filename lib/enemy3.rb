@@ -14,14 +14,8 @@ class Lisp < Character
 
   def update
     calc_route
-    tmp_x = x
-    tmp_y = y
     self.x += @dx
     self.y += @dy
-    if Sprite.check(self, Director.instance.obstacles)
-        self.x = tmp_x
-        self.y = tmp_y
-    end
   end
 
   def calc_route

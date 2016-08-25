@@ -1,5 +1,4 @@
 require 'singleton'
-#require_relative 'map'
 #require_relative 'info_window'
 require_relative 'player'
 require_relative 'vim'
@@ -14,13 +13,12 @@ require_relative 'enemy3'
 class Director
   include Singleton
   attr_reader :player, :item, :obstacles #,map
-  RANDOM = 1500
+  RANDOM = 60 * 100
 
   def initialize
     #@start_time = Time.now
     #@count = TIME_LIMIT
 
-   # @map = Map.new(File.join(File.dirname(__FILE__), "..", "images", "map.dat"))
    # @info_window = InfoWindow.new(@map.height, @count)
     @characters = []
     @items = []
@@ -32,10 +30,10 @@ class Director
     end
     @enemies = []
     @enemies << Dlang.new(1,500)
-    @enemies << Golang.new(700,500)
+    @enemies << Golang.new(750,550)
     @enemies << Lisp.new(700,1)
-    @characters += @enemies
     @characters += @obstacles
+	@characters += @enemies
     @player = Player.new
 
     @characters << @player
@@ -46,16 +44,19 @@ class Director
 
     # # ゲームオーバーになったら描画以外のことはしない
     unless game_over?
-      # count_down
+	# count_down
     Sprite.update(@characters)
+	random
     Sprite.check(@player, @enemies)
+	Sprite.check(@characters, @items)
       # Sprite.check(@player, @coins)
       # compact
     end
 	
     #@info_window.draw
+	
     Sprite.draw(@characters)
-    Sprite.check(@characters, @items)
+	Sprite.draw(@items)
 
   end
   
@@ -69,20 +70,19 @@ class Director
   end
 
   def random
-    @rand_vim = rand(RANDOM/2)
-    @rand_emacs = rand(RANDOM/5)
-    @rand_ruby = rand(RANDOM/3)
-    if @rand_vim == 30
+    r = rand(RANDOM)
+    if r % (60*25) == 0
       @item = Vim.new
       @items << @item
-    elsif @rand_emacs == 40
+	end
+    if r % (60*50) == 0
       @item = Emacs.new
       @items << @item
-    elsif @rand_ruby == 50
+	end
+    if r % (60*10) == 0
       @item = Ruby.new
       @items << @item
     end
-    Sprite.draw(@items)
   end
 
 end
