@@ -8,6 +8,7 @@ class Lisp < Character
     def initialize(x, y)
         image = Image.load(image_path("lisp.png"))
         image.set_color_key([255, 255, 12])
+        self.collision = ([0,16,14,31,31,0])
         super(x , y, image)
         @dx, @dy = 0
     end

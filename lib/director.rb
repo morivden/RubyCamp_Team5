@@ -26,7 +26,7 @@ class Director
         @prison = []
         @player = Player.new
         @enemies << Dlang.new(1,600)
-        @enemies << Golang.new(850,600)
+        @enemies << Golang.new(Window.width - 96,Window.height - 64)
         @enemies << Lisp.new(850,1)
         @prison << Prison.new(Window.width - 64, Window.height - 96)
         set_obstacle(6, [1,14], [1,9])
@@ -72,7 +72,7 @@ class Director
             dirs = [[1,0], [-1,0], [0,1], [0,-1]]
             obs = []
             #禁止
-            redo if (rx > 27 && ry > 17) || (rx+dirs[r][0] > 27 && ry+dirs[r][1] > 17) || rx+dirs[r][0] == 0 || ry+dirs[r][1] == 0
+            redo if (rx > 26 && ry > 16) || (rx+dirs[r][0] > 26 && ry+dirs[r][1] > 16) || rx+dirs[r][0] == 0 || ry+dirs[r][1] == 0
             obs << Obstacle.new(rx*32, ry*32)
             obs << Obstacle.new((rx+dirs[r][0])*32, (ry+dirs[r][1])*32)
             redo if Sprite.check(obs[0], @obstacles) || Sprite.check(obs[1], @obstacles)
