@@ -1,9 +1,9 @@
-require_relative 'character'
+﻿require_relative 'character'
 
 class Player < Character
   attr_reader :life, :score, :get_ruby, :get_vim, :get_emacs
   def initialize
-    image = Image.load(image_path("player.png"))
+    image = Image.load(image_path("player2.png"))
     image.set_color_key(C_WHITE)
     super(0, 0, image)
     @life = 1
