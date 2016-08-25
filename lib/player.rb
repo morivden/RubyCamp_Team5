@@ -1,7 +1,7 @@
 require_relative 'character'
 
 class Player < Character
-  attr_reader :life, :score
+  attr_reader :life, :score, :get_ruby, :get_vim, :get_emacs
   def initialize
     image = Image.load(image_path("player.png"))
     image.set_color_key(C_WHITE)
@@ -12,7 +12,6 @@ class Player < Character
     @get_emacs = 0
 	@delta = 3
 	@time = 0
-	@barrier = 0
 	@invincible_flag = 0
 	@invi_time = 0
   end
@@ -63,25 +62,22 @@ class Player < Character
         @get_vim = 1
       when Emacs
         @get_emacs += 1
-		@barrier += 1
       when Dlang, Golang
 		if @invincible_flag == 0
-		if @barrier > 0
-		  @barrier -= 1
+		if @get_emacs > 0
+		  @get_emacs -= 1
 		else
 		  @life -= 1
 		end
 		@invincible_flag = 1
 		end
 	  when Lisp 
-		@barrier = 0
+		@get_emacs = 0
 	    @life -= 1
 	  end
 		
 	  p "Ruby : #{@get_ruby}"
       p "Vim : #{@get_vim}"
       p "Emacs : #{@get_emacs}"
-	  p "Barrier : #{@barrier}"
-      p "---------------"
   end
 end
