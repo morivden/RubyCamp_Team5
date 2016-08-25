@@ -9,8 +9,9 @@ bg_rule = Image.load("images/rule960.png")
 bg_map = Image.load("images/background.png")
 
 bgm = Sound.new("lib/tamco03.mid")
-title_sound = Sound.new('lib/title.mid')
-clear_sound = Sound.new('lib/clear.mid')
+title_sound = Sound.new("lib/title.mid")
+clear_sound = Sound.new("lib/clear.mid")
+gameover_sound = Sound.new("lib/gameover.mid")
 
 
 gameover_flag = 0
@@ -39,6 +40,8 @@ Window.loop do
 end
 
 if gameover_flag == 1
+    bgm.stop
+    gameover_sound.play
     bg_gameover = Image.load("images/game_over.png")
     Window.loop do
         Window.draw(26, 151, bg_gameover)
