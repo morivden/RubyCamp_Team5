@@ -15,6 +15,8 @@ class Ruby < Character
       if obj.is_a?(Player)
         vanish
         @s2.play
+      elsif obj.is_a?(Dlang)
+        vanish
       end
     end
 end
