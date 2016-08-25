@@ -1,4 +1,4 @@
-require 'dxruby'
+﻿require 'dxruby'
 require_relative 'lib/director'
 
 Window.width = 960  # 32px * 25マス
@@ -6,6 +6,8 @@ Window.height = 672 # 32px * 17マス + 画面下部のスペース(54px)
 
 bg_start = Image.load("images/start960.png")
 bg_rule = Image.load("images/rule960.png")
+bg_map = Image.load("images/background.png")
+
 
 bgm = Sound.new("lib/tamco03.mid")
 bgm.play
@@ -26,6 +28,7 @@ Window.loop do
 end
 
 Window.loop do
+    Window.draw(0, 0, bg_map)
     gameover_flag = Director.instance.play
     break if (Input.key_push? K_ESCAPE) || (gameover_flag)
 end
