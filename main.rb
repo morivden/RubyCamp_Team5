@@ -34,15 +34,15 @@ Window.loop do
 end
 
 if gameover_flag == 1
-    bg_gameover = Image.load("images/maptest.png")
+    bg_gameover = Image.load("images/game_over.png")
     Window.loop do
-        Window.draw(0, 0, bg_gameover)
+        Window.draw(26, 151, bg_gameover)
         break if Input.key_push? K_RETURN
     end
 elsif gameover_flag == 2
-    bg_clear = Image.load("images/maptest.png")
+    bg_clear = Image.load("images/game_clear.png")
     Window.loop do
-        Window.draw(0, 0, bg_clear)
+        Window.draw(122, 63, bg_clear)
         break if Input.key_push? K_RETURN
     end
 end
