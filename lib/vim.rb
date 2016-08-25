@@ -1,13 +1,11 @@
 require_relative 'character'
 
 class Vim < Character
-    def initialize
+    def initialize(x, y)
         @s2 = SoundEffect.new(1000,WAVE_TRI) do
             [110,80]
         end
         image = Image.load(image_path("vim.png"))
-        x = rand(Window.width - image.width)
-        y = rand(Window.height - image.height)
         image.set_color_key(C_WHITE)
         super(x, y, image)
     end

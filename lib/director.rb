@@ -81,18 +81,29 @@ class Director
     end
 
     def random
-        r = rand(RANDOM)
-        if r % (60*20) == 0
-            @item = Vim.new
-            @items << @item
+        if rand(RANDOM) % (60*20) == 0
+            item = 0
+            loop do
+            item = Vim.new(rand(Window.width - 32),rand(Window.height - 64))
+            break if !(Sprite.check(@obstacles, item)) && !(Sprite.check(@prison, item))
+            end
+            @items << item
         end
-        if r % (60*20) == 0
-            @item = Emacs.new
-            @items << @item
+        if rand(RANDOM) % (60*20) == 0
+            item = 0
+            loop do
+            item = Emacs.new(rand(Window.width - 32),rand(Window.height - 64))
+            break if !(Sprite.check(@obstacles, item)) && !(Sprite.check(@prison, item))
+            end
+            @items << item
         end
-        if r % (60*5) == 0
-            @item = Ruby.new
-            @items << @item
+        if rand(RANDOM) % (60*5) == 0
+            item = 0
+            loop do
+            item = Ruby.new(rand(Window.width - 32),rand(Window.height - 64))
+            break if !(Sprite.check(@obstacles, item)) && !(Sprite.check(@prison, item))
+            end
+            @items << item
         end
     end
 

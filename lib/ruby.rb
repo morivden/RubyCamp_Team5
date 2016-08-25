@@ -1,13 +1,11 @@
 require_relative 'character'
 
 class Ruby < Character
-    def initialize
+    def initialize(x, y)
         @s2 = SoundEffect.new(1000,WAVE_TRI) do
             [160,100]
         end
         image = Image.load(image_path("ruby.png"))
-        x = rand(Window.width - image.width)
-        y = rand(Window.height - image.height)
         image.set_color_key(C_WHITE)
         super(x, y, image)
     end
