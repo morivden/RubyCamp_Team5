@@ -13,6 +13,7 @@ require_relative 'lisp_enemy'
 class Director
   include Singleton
   attr_reader :player, :item, :obstacles
+  attr_accessor :ending_flag
   RANDOM = 60 * 100
 
   def initialize
@@ -31,11 +32,14 @@ class Director
     @enemies << Dlang.new(1,500)
     @enemies << Golang.new(750,550)
     @enemies << Lisp.new(700,1)
-    @prison << Prison.new(896, 608)
+    @prison << Prison.new(Window.width - 64, Window.height - 96)
 
+    @characters += @prison
     @characters += @obstacles
 	  @characters += @enemies
     @characters << @player
+
+    @ending_flag = false
 
   end
 
@@ -44,18 +48,22 @@ class Director
     # # ゲームオーバーになったら描画以外のことはしない
     unless game_over?
       Sprite.update(@characters)
-	  random
+	    random
       Sprite.check(@player, @enemies)
 	    Sprite.check(@characters, @items)
+      Sprite.check(@player, @prison)
     end
 
     @info_window.draw
     Sprite.draw(@characters)
   	Sprite.draw(@items)
-    Sprite.draw(@prison)
+
+
 
     if game_over?
         return 1
+      elsif @ending_flag
+        return 2;
     end
 
   end
@@ -66,7 +74,7 @@ class Director
 	# ・プレイヤーのライフが 0 になる
 	# ・すべてのコインを取る
   def game_over?
-	return @player.life <= 0
+	   return @player.life <= 0
   end
 
   def random
