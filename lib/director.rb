@@ -23,16 +23,17 @@ class Director
         @obstacles = []
         @enemies = []
         @items = []
+        @prison = []
         @player = Player.new
         @enemies << Dlang.new(1,600)
         @enemies << Golang.new(850,600)
         @enemies << Lisp.new(850,1)
-        # @prison << Prison.new(Window.width - 64, Window.height - 96)
+        @prison << Prison.new(Window.width - 64, Window.height - 96)
         set_obstacle(6, [1,14], [1,9])
         set_obstacle(6, [15,28], [1,9])
         set_obstacle(6, [1,14], [10,18])
         set_obstacle(10, [15,28], [10,18])
-        # @characters += @prison
+        @characters << @prison
         @characters += @obstacles
         @characters += @enemies
         @characters << @player
@@ -47,6 +48,7 @@ class Director
             random
             Sprite.check(@player, @enemies)
             Sprite.check(@characters, @items)
+            Sprite.check(@player, @prison)
         end
         @info_window.draw
         Sprite.draw(@characters)

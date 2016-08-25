@@ -15,8 +15,4 @@ class Prison < Character
             Director.instance.ending_flag = true
         end
     end
-
-    def check_clear?
-        return @clear_flag
-    end
 end
