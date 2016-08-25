@@ -1,10 +1,6 @@
 require_relative 'character'
 
-# プレイヤーのあとをつけてくる敵（紫）
 class Lisp < Character
-    # UPDATE_THRESHOLD = 10 # 10フレームごとに移動する（はやい）
-    # PAST_DEPTH = 7 # どれだけ過去のプレイヤーの位置を追うか
-
     def initialize(x, y)
         image = Image.load(image_path("lisp.png"))
         image.set_color_key([255, 255, 12])

@@ -4,18 +4,19 @@ require_relative 'lib/director'
 Window.width = 960  # 32px * 25マス
 Window.height = 672 # 32px * 17マス + 画面下部のスペース(54px)
 
+# 画像読み込み
 bg_start = Image.load("images/opening_re.png")
 bg_rule = Image.load("images/rule960.png")
 bg_map = Image.load("images/background.png")
 
+# サウンド読み込み
 bgm = Sound.new("lib/tamco03.mid")
 title_sound = Sound.new("lib/title.mid")
 clear_sound = Sound.new("lib/clear.mid")
 gameover_sound = Sound.new("lib/gameover.mid")
 
-
+# ゲーム終了フラグ 1:gameover 2:clear
 gameover_flag = 0
-clear_flag = 0
 
 # スタート画面
 title_sound.play
@@ -39,6 +40,7 @@ Window.loop do
     break if (Input.key_push? K_ESCAPE) || (gameover_flag)
 end
 
+# ゲームオーバー
 if gameover_flag == 1
     bgm.stop
     gameover_sound.play
@@ -47,6 +49,7 @@ if gameover_flag == 1
         Window.draw(26, 151, bg_gameover)
         break if Input.key_push? K_RETURN
     end
+# クリア
 elsif gameover_flag == 2
     bgm.stop
     clear_sound.play
