@@ -4,6 +4,7 @@ class Dlang < Character
     def initialize(x, y)
         image = Image.load(image_path("dlang.png"))
         image.set_color_key([44,238,229])
+        self.collision = ([5,0,26,31])
         super(x, y, image)
         @dx = 5
         @dy = 5
@@ -37,7 +38,7 @@ class Dlang < Character
         end
         if y <= 0
             @dy = 5
-        elsif y >= (Window.height - image.width - 32)
+        elsif y >= (Window.height - image.height - 32)
             @dy = -5
         end
     end

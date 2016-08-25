@@ -5,6 +5,7 @@ class Player < Character
     def initialize
         image = Image.load(image_path("player2.png"))
         image.set_color_key(C_WHITE)
+        self.collision = ([2,2,29,29])
         super(0, 0, image)
         @life = 1
         @get_ruby = 0
@@ -19,7 +20,7 @@ class Player < Character
     def update
         dx, dy = 0, 0
         dy = -@delta if Input.key_down?(K_UP) && y > @delta
-        dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height
+        dy = @delta  if Input.key_down?(K_DOWN) && y < Window.height - image.height - 32
         dx = @delta  if Input.key_down?(K_RIGHT) && x < Window.width - image.width
         dx = -@delta if Input.key_down?(K_LEFT) && x > @delta
         tmp_x = x
@@ -76,8 +77,5 @@ class Player < Character
             @life -= 1
         end
 
-        p "Ruby : #{@get_ruby}"
-        p "Vim : #{@get_vim}"
-        p "Emacs : #{@get_emacs}"
     end
 end

@@ -5,6 +5,7 @@ class Golang < Character
     def initialize(x, y)
         image = Image.load(image_path("golang.png"))
         image.set_color_key(C_BLUE)
+        self.collision = ([4,0,27,31])
         super(x, y, image)
     end
 
