@@ -29,7 +29,7 @@ class Director
     @enemies << Dlang.new(1,500)
     @enemies << Golang.new(750,550)
     @enemies << Lisp.new(700,1)
-	
+
     @characters += @obstacles
 	@characters += @enemies
     @characters << @player
@@ -45,13 +45,17 @@ class Director
       Sprite.check(@player, @enemies)
 	  Sprite.check(@characters, @items)
     end
-	
+
     @info_window.draw
     Sprite.draw(@characters)
 	Sprite.draw(@items)
 
+    if game_over?
+        return 1
+    end
+
   end
-  
+
   # 下記のいずれかの状態になったらゲーム終了
 	#
 	# ・ゲーム開始から <TIME_LIMIT> 秒が経過する
