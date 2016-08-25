@@ -10,10 +10,10 @@ class Player < Character
     @get_ruby = 0
     @get_vim = 0
     @get_emacs = 0
-	@delta = 3
-	@time = 0
-	@invincible_flag = 0
-	@invi_time = 0
+  	@delta = 3
+	  @time = 0
+	  @invincible_flag = 0
+	  @invi_time = 0
   end
 
   def update
@@ -76,7 +76,7 @@ class Player < Character
 	    @life -= 1
 	  end
 
-	  p "Ruby : #{@get_ruby}"
+	    p "Ruby : #{@get_ruby}"
       p "Vim : #{@get_vim}"
       p "Emacs : #{@get_emacs}"
   end

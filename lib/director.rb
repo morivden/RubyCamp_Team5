@@ -4,6 +4,7 @@ require_relative 'player'
 require_relative 'vim'
 require_relative 'emacs'
 require_relative 'ruby'
+require_relative 'prison'
 require_relative 'obstacle'
 require_relative 'dlang_enemy'
 require_relative 'golang_enemy'
@@ -18,10 +19,11 @@ class Director
 
     @info_window = InfoWindow.new
     @characters = []
-	@obstacles = []
-	@enemies = []
+	  @obstacles = []
+	  @enemies = []
     @items = []
-	@player = Player.new
+    @prison = []
+	  @player = Player.new
 	 40.times do
       point = [rand(1..29), rand(1..18)]
       @obstacles << Obstacle.new(point[0] * 32, point[1] * 32)
@@ -29,9 +31,10 @@ class Director
     @enemies << Dlang.new(1,500)
     @enemies << Golang.new(750,550)
     @enemies << Lisp.new(700,1)
+    @prison << Prison.new(896, 608)
 
     @characters += @obstacles
-	@characters += @enemies
+	  @characters += @enemies
     @characters << @player
 
   end
@@ -43,12 +46,13 @@ class Director
       Sprite.update(@characters)
 	  random
       Sprite.check(@player, @enemies)
-	  Sprite.check(@characters, @items)
+	    Sprite.check(@characters, @items)
     end
 
     @info_window.draw
     Sprite.draw(@characters)
-	Sprite.draw(@items)
+  	Sprite.draw(@items)
+    Sprite.draw(@prison)
 
     if game_over?
         return 1
