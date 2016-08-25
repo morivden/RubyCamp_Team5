@@ -11,6 +11,7 @@ bgm = Sound.new("lib/tamco03.mid")
 bgm.play
 
 gameover_flag = 0
+clear_flag = 0
 
 # スタート画面
 Window.loop do
@@ -29,13 +30,13 @@ Window.loop do
     break if (Input.key_push? K_ESCAPE) || (gameover_flag)
 end
 
-if gameover_flag
+if gameover_flag == 1
     bg_gameover = Image.load("images/maptest.png")
     Window.loop do
         Window.draw(0, 0, bg_gameover)
         break if Input.key_push? K_RETURN
     end
-else
+elsif gameover_flag == 2
     bg_clear = Image.load("images/maptest.png")
     Window.loop do
         Window.draw(0, 0, bg_clear)
