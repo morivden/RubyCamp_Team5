@@ -7,7 +7,6 @@ bgm = Sound.new("lib/tamco03.mid")
 bgm.play
 Window.loop do
   Director.instance.play
-  Director.instance.random
 
   break if Input.key_push? K_ESCAPE
 end

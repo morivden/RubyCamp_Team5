@@ -6,37 +6,29 @@ class Golang < Character
     image = Image.load(image_path("golang.png"))
     image.set_color_key(C_BLUE)
     super(x, y, image)
-	@dx = 0
-	@dy = 0
   end
 
   def update
-	calc_route
-	tmp_x = x
-    tmp_y = y
-    self.x += @dx
-    self.y += @dy
-    if Sprite.check(self, Director.instance.obstacles)
-      self.x = tmp_x
-      self.y = tmp_y
-    end
+    dirs = calc_route( x, y )
+	dirs.each do |dx, dy, distance|
+	  self.x += dx
+	  self.y += dy
+	  break unless Sprite.check(self, Director.instance.obstacles)
+	  self.x -= dx
+	  self.y -= dy
+	end
   end
 
-  def calc_route
+  def calc_route( tmp_x, tmp_y )
 	player = Director.instance.player
-	if x - player.x < 0
-	  @dx  = DELTA
-	elsif x - player.x == 0
-	  @dx = 0  
-	else 
-	  @dx = -DELTA
-	end
-	if y - player.y < 0
-	  @dy = DELTA
-	elsif y - player.y == 0
-	  @dy = 0  
-	else 
-	  @dy = -DELTA
-	end
+	dirs = [0, DELTA, -DELTA].repeated_permutation(2).to_a
+	dirs.unshift
+	dirs = dirs.map do |dx, dy|
+      ex = tmp_x + dx
+	  ey = tmp_y + dy
+	  distance = (( player.x - ex )**2) + (( player.y - ey )**2)
+      [dx, dy, distance]
+    end
+	return dirs.sort_by { |e| e[2] }
   end
 end
