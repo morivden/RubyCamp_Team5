@@ -9,7 +9,7 @@ class Prison < Character
     end
     def hit(obj)
         player = Director.instance.player
-        if obj.is_a?(Player) && player.get_ruby >= 0
+        if obj.is_a?(Player) && player.get_ruby >= 10
             vanish
             @clear_flag = true
             Director.instance.ending_flag = true
